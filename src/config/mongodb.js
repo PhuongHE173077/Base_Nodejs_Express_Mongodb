@@ -1,18 +1,18 @@
 const { MongoClient } = require("mongodb")
 const { env } = require("./environment")
 
-let bookingInstance = null
+let dbInstance = null
 
 const mongoClient = new MongoClient(env.MONGODB_URI)
 
 export const CONNECT_DB = async () => {
   await mongoClient.connect()
-  bookingInstance = mongoClient.db(env.MONGODB_DB)
+  dbInstance = mongoClient.db(env.MONGODB_DB)
 }
 
 export const GET_DB = () => {
-  if (!bookingInstance) {
+  if (!dbInstance) {
     throw new Error('You must connect to DB first')
   }
-  return bookingInstance
+  return dbInstance
 }
